@@ -1,3 +1,16 @@
+<?php
+try
+{
+	$bdd = new PDO ('mysql:host=localhost;dbname=tp-minichat', 'root', 'monmotdepasse');
+}
+catch (Exception $e)
+{
+	die('Erreur : ' . $e->getMessage());
+}
+
+
+
+?>
 <!doctype html>
 <html lang=fr>
 <head>
@@ -33,8 +46,15 @@ Si le pseudo existe afficher Le chat [SECTION1]
 	<p>Bonjour <?php echo $_POST['pseudo'];  ?></p>
 	<section>
 <?php
-while (i machin) {
-	echo "<p>" . [SQL] . "</p>";
+
+$chatMessages = $bdd->query(SELECT utilisateurschat.nomutilisateur, messageschat.message, messageschat.heure
+FROM messageschat, utilisateurschat 
+WHERE messageschat.ID_user = utilisateurschat.ID_user);
+
+while ($donnees = $reponse->fetch()) {
+	echo "<p><strong>" . $donnees['pseudo'] . " | " . $donnees['heure'] . "</strong><br /> " . $donnees['message'] . "</p>";
+
+
 
 	/*
 	Requette SQL pour tout enregistrer
