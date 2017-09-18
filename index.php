@@ -1,16 +1,14 @@
-<?php
-try
-{
-	$bdd = new PDO ('mysql:host=localhost;dbname=tp-minichat', 'root', 'monmotdepasse');
-}
-catch (Exception $e)
-{
-	die('Erreur : ' . $e->getMessage());
-}
+<?php ////////////////////////////////////////PHP-STA///////////////////////////////////
+//Connexion SGBD//////////////////////////////////////////////////////////////////////////////
+try { $bdd = new PDO ('mysql:host=localhost;dbname=tp-minichat', 'root', 'monmotdepasse');}///
+catch (Exception $e) { die('Erreur : ' . $e->getMessage());}//////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//Appel du contenu de la SGBD
 $reponse = $bdd->query('SELECT utilisateurschat.nomutilisateur, messageschat.message, messageschat.heure
 FROM messageschat, utilisateurschat
 WHERE messageschat.ID_user = utilisateurschat.ID_user');
-?>
+
+/*//////////////////////////////////////PHP-END/////////////////////////////////*/ ?>
 <!doctype html>
 <html lang=fr>
 <head>
@@ -36,14 +34,19 @@ WHERE messageschat.ID_user = utilisateurschat.ID_user');
 <body>
 	<header><h1>Le petit chat</h1></header>
 	<main>
-<?php
+<?php ////////////////////////////////////////PHP-STA///////////////////////////////////
+//On vérifie le pseudo
 if (isset($_POST['pseudo'])) {
+$pseudo = htmlspecialchars($_POST['pseudo']);
+/*
+-----Pseudo verifications script part1
+*/
 /*====================================================================================
 //==========SECTION1
 Si le pseudo existe afficher Le chat [SECTION1]
 //====================================================================================*/
-?>
-	<p>Bonjour <?php echo $_POST['pseudo'];  ?></p>
+////////////////////////////////////////PHP-END/////////////////////////////////// ?>
+	<p>Bonjour <?php echo $pseudo;  ?></p>
 	<section>
 		<?php
 			while ($donnees = $reponse->fetch()) {
@@ -55,13 +58,19 @@ Si le pseudo existe afficher Le chat [SECTION1]
 		?>
 	</section>
 	<hr/>
+	<p><?php if (isset($erreur)) 
+          {
+            echo $erreur ;
+          }  
+          ?></p>
 	<section>
-		<form action="cible.php" method="post">
+		<form action="chatmachine.php" method="post">
 			<label for="message">Votre message :</label>
 			<textarea type="text" name="message" id="message" required></textarea>			
 			<br/>
 
 			<input type="hidden" name="datetime" id="datetime" value="yyyy_mm_dd_hh_mm_ss()" />				
+			<input type="hidden" name="pseudo" id="pseudo" value="<?php echo $pseudo ;?>" />				
 
 			<input type="submit" value="Envoyer message" />
 		</form>
@@ -70,18 +79,21 @@ Si le pseudo existe afficher Le chat [SECTION1]
 	<footer><small>&copy; 2017 - Renaud BERNARD</small></footer>
 </body>
 </html>
-<?php
-} else  {
+<?php ////////////////////////////////////////PHP-STA///////////////////////////////////
+} else {
+/*
+-----Pseudo verifications script part2
+*/
 /*====================================================================================
-//==========SECTION1
-Si le pseudo n'existe pas afficher le formulaire d'inscription
+//==========SECTION2
+Si le pseudo n'existe pas afficher le formulaire d'inscription [SECTION2]
 //====================================================================================*/
-?>
+/*//////////////////////////////////////PHP-END/////////////////////////////////*/ ?>
 	<p>Entrez votre pseudo !</p>
 	<section>
 		<form action="index.php" method="post">
 			<label for="pseudo">Votre pseudo :</label>
-			<input type="text" name="pseudo" id="psudo" required />
+			<input type="text" name="pseudo" id="pseudo" required />
 			<br/>
 			<input type="submit" value="Envoyer message" />
 		</form>
@@ -90,8 +102,8 @@ Si le pseudo n'existe pas afficher le formulaire d'inscription
 	<footer><small>&copy; 2017 - Renaud BERNARD</small></footer>
 </body>
 </html>
-<?php
-}//END Conditionnal
+<?php ////////////////////////////////////////PHP-STA///////////////////////////////////
+}//END Pseudo verifications
 
 
 //====================================================================================
@@ -99,7 +111,7 @@ Si le pseudo n'existe pas afficher le formulaire d'inscription
 //==============================:======================================================
 
 
-?>
+/*//////////////////////////////////////PHP-END/////////////////////////////////*/ ?>
 
 
 
