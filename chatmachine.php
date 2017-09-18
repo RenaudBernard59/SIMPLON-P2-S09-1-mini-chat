@@ -30,12 +30,14 @@ $pseudoexist = $reqpseudo->rowcount();
 */
 	// Le pseudo n'existe pas > on en crée un.
 		/////////////SCRIPT:::::::::::::::::
+echo $pseudo . " | ". $pseudoexist . " | ". $date . " | ". $message;
 } else {
 /*
 -----pseudoexist script part2
 */
 	// Le pseudo existe > on l'utilise + pas de nouvelle entrée.
 		/////////////SCRIPT:::::::::::::::::
+echo $pseudo . " | ". $pseudoexist . " | ". $date . " | ". $message;
 } //END pseudoexist
 } else {
 /*
