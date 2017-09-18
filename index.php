@@ -7,9 +7,9 @@ catch (Exception $e)
 {
 	die('Erreur : ' . $e->getMessage());
 }
-
-
-
+$reponse = $bdd->query('SELECT utilisateurschat.nomutilisateur, messageschat.message, messageschat.heure
+FROM messageschat, utilisateurschat
+WHERE messageschat.ID_user = utilisateurschat.ID_user');
 ?>
 <!doctype html>
 <html lang=fr>
@@ -45,34 +45,23 @@ Si le pseudo existe afficher Le chat [SECTION1]
 ?>
 	<p>Bonjour <?php echo $_POST['pseudo'];  ?></p>
 	<section>
-<?php
-
-$chatMessages = $bdd->query(SELECT utilisateurschat.nomutilisateur, messageschat.message, messageschat.heure
-FROM messageschat, utilisateurschat 
-WHERE messageschat.ID_user = utilisateurschat.ID_user);
-
-while ($donnees = $reponse->fetch()) {
-	echo "<p><strong>" . $donnees['pseudo'] . " | " . $donnees['heure'] . "</strong><br /> " . $donnees['message'] . "</p>";
-
-
-
-	/*
-	Requette SQL pour tout enregistrer
-	[SELECT utilisateurschat.nomutilisateur, messageschat.message FROM messageschat, utilisateurschat WHERE messageschat.ID_user = utilisateurschat.ID_user ]
-
-
-	*/
-}
-?>
+		<?php
+			while ($donnees = $reponse->fetch()) {
+		?>
+			<p><strong> <?php echo $donnees['nomutilisateur'] . " | " . $donnees['heure']; ?></strong><br />
+			<?php echo $donnees['message']; ?></p>
+		<?php
+		}
+		?>
 	</section>
 	<hr/>
 	<section>
 		<form action="cible.php" method="post">
 			<label for="message">Votre message :</label>
-			<textarea type="text" name="message" id="message required"></textarea>			
+			<textarea type="text" name="message" id="message" required></textarea>			
 			<br/>
 
-			<input type="hidden " id="datetime" value="yyyy_mm_dd_hh_mm_ss()" />				
+			<input type="hidden" name="datetime" id="datetime" value="yyyy_mm_dd_hh_mm_ss()" />				
 
 			<input type="submit" value="Envoyer message" />
 		</form>
@@ -82,8 +71,6 @@ while ($donnees = $reponse->fetch()) {
 </body>
 </html>
 <?php
-
-
 } else  {
 /*====================================================================================
 //==========SECTION1
