@@ -125,22 +125,4 @@ if (isset($_POST['pseudo'])) {
         </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Download Formatting took: 238 ms
-PHP Formatter made by Spark Labs  
-Copyright Gerben van Veenendaal  
+<?php ///////////////////////////////////////////////////////////////////////////////////
